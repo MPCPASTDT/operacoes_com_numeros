@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teste de Processamento</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .container {
+            margin-bottom: 20px;
+        }
+        button {
+            margin-right: 10px;
+            padding: 10px;
+            background-color: #7dd123;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #61912f;
+        }
+        pre {
+            background-color: #f8f9fa;
+            padding: 10px;
+            border: 1px solid #ddd;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>Teste de Processamento com Números</h1>
+
+    <div class="container">
+        <button onclick="mostrarNumerosNaturais()">10 Números Naturais</button>
+        <button onclick="mostrarNumerosPares()">10 Números Pares</button>
+        <button onclick="mostrarNumerosImpares()">10 Números Ímpares</button>
+        <button onclick="mostrarMultiplosDe3()">10 Múltiplos de 3</button>
+        <button onclick="mostrarDivisoresDe12()">Divisores de 12</button>
+        <button onclick="mostrarFatorial()">Fatorial de n</button>
+        <button onclick="testarProcessamento()">Teste de Processamento</button>
+    </div>
+    <pre id="output"></pre>
+
+    <script>
+        const output = document.getElementById('output');
+
+        function mostrarNumerosNaturais() {
+            const naturais = Array.from({ length: 10 }, (_, i) => i + 1);
+            output.textContent = `10 Números Naturais: ${naturais.join(", ")}`;
+        }
+
+        function mostrarNumerosPares() {
+            const pares = Array.from({ length: 10 }, (_, i) => 2 * i);
+            output.textContent = `10 Números Pares: ${pares.join(", ")}`;
+        }
+
+        function mostrarNumerosImpares() {
+            const impares = Array.from({ length: 10 }, (_, i) => 2 * i + 1);
+            output.textContent = `10 Números Ímpares: ${impares.join(", ")}`;
+        }
+
+        function mostrarMultiplosDe3() {
+            const multiplos = Array.from({ length: 10 }, (_, i) => 3 * (i + 1));
+            output.textContent = `10 Múltiplos de 3: ${multiplos.join(", ")}`;
+        }
+
+        function mostrarDivisoresDe12() {
+            const divisores = [1, 2, 3, 4, 6, 12];
+            output.textContent = `Divisores de 12: ${divisores.join(", ")}`;
+        }
+
+        function mostrarFatorial() {
+            const n = parseInt(prompt("Digite o valor de n para calcular o fatorial:"));
+            if (isNaN(n) || n < 0) {
+                output.textContent = "Por favor, insira um número válido!";
+                return;
+            }
+
+            let fatorial = 1;
+            for (let i = 1; i <= n; i++) {
+                fatorial *= i;
+            }
+
+            output.textContent = `Fatorial de ${n}: ${fatorial}`;
+        }
+
+        function testarProcessamento() {
+            const tamanhos = [10, 100, 1000, 10000, 100000, 1000000];
+            let resultados = "";
+
+            for (const tamanho of tamanhos) {
+                const inicio = performance.now();
+
+                const naturais = Array.from({ length: tamanho }, (_, i) => i + 1);
+                const pares = naturais.filter(n => n % 2 === 0);
+                const impares = naturais.filter(n => n % 2 !== 0);
+                const multiplosDe3 = naturais.filter(n => n % 3 === 0);
+
+                const fim = performance.now();
+                const tempo = (fim - inicio).toFixed(2);
+
+                resultados += `Para ${tamanho} números:\n`;
+                resultados += `- Tempo de cálculo: ${tempo}ms\n`;
+            }
+
+            output.textContent = resultados;
+        }
+    </script>
+</body>
+</html>
